@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework import filters, permissions, viewsets
 from rest_framework.pagination import LimitOffsetPagination
 
-from api.permissions import IsOwnerOrReadOnly
 from api import serializers
+from api.permissions import IsOwnerOrReadOnly
 from posts import models
 
 
@@ -33,8 +33,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         post = get_object_or_404(models.Post, pk=self.kwargs.get('post_id'))
-        new_queryset = post.comments.all()
-        return new_queryset
+        return post.comments.all()
 
     def perform_create(self, serializer):
         post = get_object_or_404(models.Post, pk=self.kwargs.get('post_id'))
